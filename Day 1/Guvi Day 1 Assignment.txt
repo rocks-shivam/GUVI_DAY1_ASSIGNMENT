@@ -1,0 +1,73 @@
+-- Note for Day1 only questions 1,2 and 6 can be done other questions contains Joins which is not taught today i.e. day 1
+create database chubb; 
+show databases;
+use chubb;
+-- 1.Creating Tables
+-- a. Users table
+create table Users (Id int,User_Name varchar(50),problems_solved int,company_drives int);
+
+-- b. Codekata table
+create table Codekata (User_Name varchar(50),problems_solved int);
+alter table Codekata Add Sno int;
+
+-- c. Attendance table
+create table Attendance (User_Name varchar(50),Attendance_Status text);
+alter table Attendance Add Id int;
+
+-- d. Topics table
+create table Topics (Topic_Name varchar(50),User_Name varchar(50));
+alter table Topics Add Sno int;
+
+-- e. Tasks Table
+create table Tasks (Task_Name varchar(50),User_Name varchar(50));
+alter table Tasks Add Sno int;
+
+-- f. Companies Drive table
+create table Company_Drives (Sno int,Company_Name varchar(50),User_Name varchar(50));
+select * from Users;
+
+-- g. Mentors table
+create table Mentors (Mentor_id int,Mentor_Name varchar(50),User_Name varchar(50));
+
+-- h. students_activated_courses table
+create table students_activated_courses (Sno int,Activated_Course_Name varchar(50),User_Name varchar(50));
+show tables;
+
+-- i. Courses Table
+create table courses (Sno int,Course_Name varchar(50));
+
+-- 2. Inserting minimum 5 rows in each table
+-- a.
+Insert into Users(Id,User_Name,problems_solved,company_drives) Values(1,"Ram",25,5);
+Insert into Users(Id,User_Name,problems_solved,company_drives) Values(2,"Shyam",30,7),(3,"Ghanshyam",27,8),(4,"Shivam",30,5),(5,"Tushar",28,5);
+select * from Users;
+
+-- b.
+Insert into Codekata(Sno,User_Name,problems_solved)Values(1,"Ram",25),(2,"Shyam",30),(3,"Ghanshyam",27),(4,"Shivam",30),(5,"Tushar",28);
+select * from Codekata;
+
+-- c.
+Insert into Attendance(Id,User_Name,Attendance_Status)Values(1,"Ram","Present"),(2,"Shyam","Absent"),(3,"Ghanshyam","Present"),(4,"Shivam","Present"),(5,"Tushar","Present");
+
+-- d.
+Insert into Topics(Sno,Topic_Name,User_Name)Values(1,"Maths","Ram"),(2,"Strings","Shyam"),(3,"DP","Ghanshyam"),(4,"Linked List","Shivam"),(5,"Array","Tushar");
+
+-- e.
+Insert into Tasks(Sno,Task_Name,User_name)Values(1,"SQL Hands on","Ram"),(2,"Coding","Shyam"),(3,"Webd","Ghanshyam"),(4,"Cloud","Shivam"),(5,"Data Science","Tushar");
+
+-- f.
+INsert into Company_Drives(Sno,Company_name,User_Name)Values(1,"Amazon","Ram"),(2,"Google","Shyam"),(3,"Microsoft","Ghanshyam"),(4,"Chubb","Shivam"),(5,"Chubb","Tushar");
+
+-- g.
+Insert into Mentors(Mentor_Id,Mentor_Name,User_Name)Values(1,"Venkat","Ram"),(1,"Venkat","Shyam"),(1,"Venkat","Ghanshyam"),(1,"Venkat","Shivam"),(1,"Venkat","Tushar");
+
+-- h.
+Insert into students_activated_courses(Sno,Activated_Course_Name,User_Name)VAlues(1,"SQL","Ram"),(2,"NOSQL","Shyam"),(3,"NODE JS","Ghanshyam"),(4,"Cloud","Shivam"),(5,"Data Science","Tushar");
+
+-- i.
+Insert into courses(Sno,Course_Name)Values(1,"SQL"),(2,"NOSQL"),(3,"NODE JS"),(4,"Cloud"),(5,"Data Science");
+
+-- 6.Listing out all mentors
+select Mentor_Name from Mentors;
+
+
