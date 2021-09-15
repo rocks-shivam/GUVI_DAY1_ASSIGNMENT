@@ -1,73 +1,76 @@
--- Note for Day1 only questions 1,2 and 6 can be done other questions contains Joins which is not taught today i.e. day 1
+-- Note Completed all the questions
 create database chubb; 
 show databases;
 use chubb;
 -- 1.Creating Tables
 -- a. Users table
-create table Users (Id int,User_Name varchar(50),problems_solved int,company_drives int);
+create table Users (USer_Id int Not NULL Primary Key,User_Name varchar(50));
 
 -- b. Codekata table
-create table Codekata (User_Name varchar(50),problems_solved int);
-alter table Codekata Add Sno int;
+create table Codekata (Id int Not Null,User_id int,no_problems_solved int,Foreign Key(User_id) References Users(Users_id));
 
 -- c. Attendance table
-create table Attendance (User_Name varchar(50),Attendance_Status text);
-alter table Attendance Add Id int;
+create table Attendance (Id int Not NULL Primary Key, User_id int, Date date,Attendance_Status text,Foreign key(User_id) References Users(User_id));
 
 -- d. Topics table
-create table Topics (Topic_Name varchar(50),User_Name varchar(50));
-alter table Topics Add Sno int;
+create table Topics (Id int NOT NULL Primary Key,User_id int,Topic_Name varchar(50),Foreign key(User_id) References Users(User_id));
 
 -- e. Tasks Table
-create table Tasks (Task_Name varchar(50),User_Name varchar(50));
-alter table Tasks Add Sno int;
+create table Tasks (Id int NOT NULL,User_id int,Task_Name varchar(50),Foreign Key(User_id)References Users(User_id));
 
 -- f. Companies Drive table
-create table Company_Drives (Sno int,Company_Name varchar(50),User_Name varchar(50));
-select * from Users;
+create table Company_Drives (Id int NOT NULL Primary Key,USr_id int ,No_of_Company_Drives_Attended int,Foreign Key(User_id)References Users(User_id));
 
 -- g. Mentors table
-create table Mentors (Mentor_id int,Mentor_Name varchar(50),User_Name varchar(50));
+create table Mentors (Id int NOT NULL Primary Key,User_id int,Mentor_Name varchar(50),Foreign Key(User_Id)References Users(User_id));
 
 -- h. students_activated_courses table
-create table students_activated_courses (Sno int,Activated_Course_Name varchar(50),User_Name varchar(50));
-show tables;
+create table students_activated_courses (Id int NOT NULL PRIMARY KEY,User_id int,Activated_Course_Name varchar(50),Foreign Key(User_id)References Users(User_id));
 
 -- i. Courses Table
-create table courses (Sno int,Course_Name varchar(50));
+create table courses (Id int NOT NULL Primary Key,User_id int,Course_name varchar(50),Foreign Key(User_id)References Users(User_id));
 
 -- 2. Inserting minimum 5 rows in each table
 -- a.
-Insert into Users(Id,User_Name,problems_solved,company_drives) Values(1,"Ram",25,5);
-Insert into Users(Id,User_Name,problems_solved,company_drives) Values(2,"Shyam",30,7),(3,"Ghanshyam",27,8),(4,"Shivam",30,5),(5,"Tushar",28,5);
-select * from Users;
+Insert into Users Values(1,"Ram"),(2,"Shyam"),(3,"Ghanshyam"),(4,"Shivam"),(5,"Tushar");
 
 -- b.
-Insert into Codekata(Sno,User_Name,problems_solved)Values(1,"Ram",25),(2,"Shyam",30),(3,"Ghanshyam",27),(4,"Shivam",30),(5,"Tushar",28);
+Insert into Codekata Values(1,1,25),(2,2,30),(3,3,27),(4,4,30),(5,5,26);
 select * from Codekata;
 
--- c.
-Insert into Attendance(Id,User_Name,Attendance_Status)Values(1,"Ram","Present"),(2,"Shyam","Absent"),(3,"Ghanshyam","Present"),(4,"Shivam","Present"),(5,"Tushar","Present");
+-- c.Assumed two days attendance for each student
+Insert into Attendance Values(1,1,'2021-09-03',"Present"),(2,1,'2021-09-04',"Present"),(3,2,'2021-09-03',"Present"),(4,2,'2021-09-04',"Absent"),(5,3,'2021-09-03',"Present)(6,3,'2021-09-04',"Present"),(7,4,'2021-09-03',"Present"),(8,4,'2021-09-04',"Absent"),(9,5,'2021-09-03',"Present"),(10,5,'2021-09-04',"Present");
 
 -- d.
-Insert into Topics(Sno,Topic_Name,User_Name)Values(1,"Maths","Ram"),(2,"Strings","Shyam"),(3,"DP","Ghanshyam"),(4,"Linked List","Shivam"),(5,"Array","Tushar");
+Insert into Topics Values(1,1,"SQL"),(2,1,"NOSQL"),(3,2,"SQL"),(4,2,"NOSQL"),(5,3,"SQL"),(6,3,"NOSQL"),(7,4,"SQL"),(8,4,"NOSQL"),(9,5,"SQL"),(10,5,"NOSQL");
 
 -- e.
-Insert into Tasks(Sno,Task_Name,User_name)Values(1,"SQL Hands on","Ram"),(2,"Coding","Shyam"),(3,"Webd","Ghanshyam"),(4,"Cloud","Shivam"),(5,"Data Science","Tushar");
+Insert into Tasks Values(1,1,"SQL Hands on"),(2,1,"Coding"),(3,2,"SQL Hands on"),(4,2,"Coding"),(5,3,"SQL Hands on"),(6,3,"Coding"),(7,4,"SQL Hands on"),(8,4,"Coding"),(9,5,"SQL Hands on"),(10,5,"Coding");
 
 -- f.
-INsert into Company_Drives(Sno,Company_name,User_Name)Values(1,"Amazon","Ram"),(2,"Google","Shyam"),(3,"Microsoft","Ghanshyam"),(4,"Chubb","Shivam"),(5,"Chubb","Tushar");
+INsert into Company_Drives Values(1,1,7),(2,2,6),(3,3,9),(4,4,8),(5,5,7);
 
 -- g.
-Insert into Mentors(Mentor_Id,Mentor_Name,User_Name)Values(1,"Venkat","Ram"),(1,"Venkat","Shyam"),(1,"Venkat","Ghanshyam"),(1,"Venkat","Shivam"),(1,"Venkat","Tushar");
+Insert into Mentors Values(1,1,"Venkat"),(2,2,"Venkat"),(3,3,"Venkat"),(4,4,"RV"),(5,5,"RV");
 
 -- h.
-Insert into students_activated_courses(Sno,Activated_Course_Name,User_Name)VAlues(1,"SQL","Ram"),(2,"NOSQL","Shyam"),(3,"NODE JS","Ghanshyam"),(4,"Cloud","Shivam"),(5,"Data Science","Tushar");
+Insert into students_activated_courses Values(1,1,"SQL"),(2,1,"NOSQL"),(3,2,"SQL"),(4,2,"NOSQL"),(5,3,"SQL"),(6,3,"NOSQL"),(7,4,"SQL"),(8,4,"NOSQL"),(9,5,"SQL"),(10,5,"NOSQL");
 
 -- i.
-Insert into courses(Sno,Course_Name)Values(1,"SQL"),(2,"NOSQL"),(3,"NODE JS"),(4,"Cloud"),(5,"Data Science");
+Insert into courses Values(1,1,"Cloud"),(2,1,"AI"),(3,2,"ML"),(4,2,"DATA SCIENCE"),(5,3,"Cloud"),(6,3,"AI"),(7,4,"Cloud"),(8,4,"DevOps"),(9,5,"Devops"),(10,5,"AI");
+
+-- 3.get number problems solved in codekata by combining the users
+select a.user_name,b.no__problems_solved from Codekata b join Users a on b.user_id=a.user_id;
+
+--4.display the no of company drives attended by a user
+select a.user_name,b.No_of_Company_Drives_Attended from Company_Drives b JOIN Users a on b.user_id=a.user_id where user_name="Shivam";
+
+--5.combine and display students_activated_courses and courses for a specific user groping them based on the course
+select a.user_name,b.Activated_Course_Name,c.Course_name from students_activated_courses b JOIN courses c where b.user_id=c.user_id And JOIN Users a on b.user_id=a.user_id where user_name="Shivam";
 
 -- 6.Listing out all mentors
-select Mentor_Name from Mentors;
+select Distinct(Mentor_Name) from Mentors;
 
+--7.list the number of students that are assigned for a mentor
+select mentor_name,count(id) from mentors where mentor_name="Venkat"; 
 
